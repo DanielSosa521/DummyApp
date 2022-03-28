@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DummyApp</string>
+    <string name="welcome_to_dummy_app">Welcome to Dummy App!</string>
+    <string name="image_of_a_gold_star">Image of a gold star</string>
+    <string name="test">Test</string>
+    <string name="helloworld">HELLO WORLD</string>
+    <string name="image_of_product">Image of product</string>
+</resources>
