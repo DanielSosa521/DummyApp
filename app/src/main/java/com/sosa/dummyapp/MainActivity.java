@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         GetUrlContentTask urlContentTask = new GetUrlContentTask(this);     //the task then calls displayProduct() to update all the views
         String myURL = "https://dummyjson.com/products/" + index;
         Log.i(TAG, "Target URL : " + myURL);
-        urlContentTask.execute(myURL);
+        urlContentTask.execute(myURL);          //run the task
     }
 
 }
