@@ -1,13 +1,16 @@
 package com.sosa.dummyapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
             titleTextView.setText(R.string.helloworld);                     //Pressing button will get a product data and display it
             getAndShowProduct(index);
             index++;
+        });
+
+        FloatingActionButton navFloatingActionBtn = findViewById(R.id.navFloatingActionBtn);
+        navFloatingActionBtn.setOnClickListener(view -> {
+            Log.i(TAG, "NavBtn pressed!");
+            openActivity();
         });
     }
 
@@ -52,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
         String myURL = "https://dummyjson.com/products/" + index;
         Log.i(TAG, "Target URL : " + myURL);
         urlContentTask.execute(myURL);          //run the task
+    }
+
+    public void openActivity(){
+        Log.i(TAG, "Going to nav activity!");
+        Intent intent = new Intent(this, NavigationMenuActivity.class);
+        startActivity(intent);
     }
 
 }
