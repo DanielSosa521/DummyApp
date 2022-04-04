@@ -1,5 +1,6 @@
 package com.sosa.dummyapp.ui.dashboards;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,8 @@ public class DashboardsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_dashboards, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboards);
         dashboardsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        Intent intent = new Intent(getContext(), DashboardHost.class);
+        startActivity(intent);
         return root;
     }
 
