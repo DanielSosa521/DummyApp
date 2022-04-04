@@ -14,6 +14,7 @@ import com.sosa.dummyapp.R;
 
 public class DashboardsFragment extends Fragment {
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DashboardsViewModel dashboardsViewModel = new ViewModelProvider(this).get(DashboardsViewModel.class);

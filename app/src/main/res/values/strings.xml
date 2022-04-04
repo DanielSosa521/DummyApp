@@ -16,4 +16,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_dashboard">Dashboards</string>
     <string name="menu_settings">Settings</string>
+    <string name="title_activity_dashboard_host">DashboardHost</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>
