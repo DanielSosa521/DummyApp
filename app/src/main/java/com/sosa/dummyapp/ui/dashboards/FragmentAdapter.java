@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.sosa.dummyapp.ui.dashboards.fragments.FirstFragment;
-import com.sosa.dummyapp.ui.dashboards.fragments.SecondFragment;
+import com.sosa.dummyapp.ui.dashboards.fragments.MonthFragment;
+import com.sosa.dummyapp.ui.dashboards.fragments.DayFragment;
 
 public class FragmentAdapter extends FragmentStateAdapter {
 
@@ -21,8 +21,8 @@ public class FragmentAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
 
         switch (position){
-            default: return new FirstFragment();
-            case 1 : return new SecondFragment();
+            default: return new MonthFragment();
+            case 1 : return new DayFragment();
         }
     }
 
