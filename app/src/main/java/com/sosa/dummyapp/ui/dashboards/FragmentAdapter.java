@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.sosa.dummyapp.ui.dashboards.fragments.MonthFragment;
 import com.sosa.dummyapp.ui.dashboards.fragments.DayFragment;
+import com.sosa.dummyapp.ui.dashboards.fragments.PlugsFragment;
 
 public class FragmentAdapter extends FragmentStateAdapter {
 
@@ -23,11 +24,12 @@ public class FragmentAdapter extends FragmentStateAdapter {
         switch (position){
             default: return new MonthFragment();
             case 1 : return new DayFragment();
+            case 2 : return new PlugsFragment();
         }
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }
 }

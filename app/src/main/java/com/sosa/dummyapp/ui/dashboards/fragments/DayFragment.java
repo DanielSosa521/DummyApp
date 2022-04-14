@@ -76,6 +76,15 @@ public class DayFragment extends Fragment {
                 new DataPoint(24, 7)
         });
         graphView.addSeries(series);
+        // set manual X bounds
+        graphView.getViewport().setXAxisBoundsManual(true);
+        graphView.getViewport().setMinX(0);
+        graphView.getViewport().setMaxX(24);
+
+        // set manual Y bounds
+        graphView.getViewport().setYAxisBoundsManual(true);
+        graphView.getViewport().setMinY(0);
+        graphView.getViewport().setMaxY(25);
     }
 
     @Override

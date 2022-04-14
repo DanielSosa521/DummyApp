@@ -35,6 +35,7 @@ public class DashboardsFragment extends Fragment {
         viewpager2.setAdapter(adapter);
         tabLayout.addTab(tabLayout.newTab().setText("Month"));
         tabLayout.addTab(tabLayout.newTab().setText("Day"));
+        tabLayout.addTab(tabLayout.newTab().setText("Plugs"));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
