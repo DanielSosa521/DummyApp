@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.sosa.dummyapp.ui.home.HomeFragment;
+import com.sosa.dummyapp.ui.dashboards.DashboardsFragment;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,30 +13,19 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GetUrlContentTask extends AsyncTask<String, Integer, String> {
+public class GetDashboardContentTask extends AsyncTask<String , Integer, String > {
 
-    private static final String TAG = "GetUrlContentTask";
+    private static final String TAG = "GetDashboardContentTask";
+    private WeakReference<DashboardsFragment> dashboardsFragmentWeakReference;
 
-    //We need to pass in the MainActivity so we send it commands from this Task
-    public GetUrlContentTask(MainActivity mainActivity){
-        super();
-        this.setContext(mainActivity);
-    }
-
-    public GetUrlContentTask(HomeFragment fragment){
+    //Pass in DashboardFragment to send commands
+    public GetDashboardContentTask(DashboardsFragment fragment){
         super();
         this.setContext(fragment);
-        Log.i("GETURLCONTENTTASK", "HomeFragment called constructor");
+        Log.i(TAG, "Instance created");
     }
 
-    //This is the reference to the MainActivity. To use, do mainActivity.get()
-    private WeakReference<MainActivity>  mainActivity;
-    private WeakReference<HomeFragment> homeFragmentWeakReference;
-
-    public void setContext(HomeFragment fragment){ homeFragmentWeakReference = new WeakReference<>(fragment);}
-    public void setContext(MainActivity activity){
-        mainActivity = new WeakReference<>(activity);
-    }
+    public void setContext(DashboardsFragment fragment){dashboardsFragmentWeakReference = new WeakReference<>(fragment);}
 
     @Override
     protected String doInBackground(String... urls) {
@@ -56,7 +45,7 @@ public class GetUrlContentTask extends AsyncTask<String, Integer, String> {
             Log.i(TAG, "ResponseCode : " + status);     //Learn about response codes : https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
             content = readResponse(connection);         //Get the HTTP response content
-            Log.i(TAG, content);
+//            Log.i(TAG, content);
 
         } catch (Exception e){
             e.printStackTrace();
@@ -104,23 +93,13 @@ public class GetUrlContentTask extends AsyncTask<String, Integer, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-
-        Log.i(TAG, "onPostExec :: " + result);
-        HomeResource homeResource = new Gson().fromJson(result, HomeResource.class);
-        if (homeResource == null){
+    protected void onPostExecute(String res) {
+        Log.i(TAG, "onPostExec :: " + res);
+        DashboardResource dashResource = new Gson().fromJson(res, DashboardResource.class);
+        if (dashResource == null){
             Log.i(TAG, "onPostExec :: NULL content - ABORTING");        //avoid crash if connection failed
             return;
         }
-        homeFragmentWeakReference.get().updateHomeViews(homeResource);
-//        DummyProduct myProduct = new Gson().fromJson(result, DummyProduct.class);
-//        displayProduct(myProduct);
-    }
-
-
-
-    private void displayProduct(DummyProduct product){
-        Log.i(TAG, "Displaying product on screen!");
-        mainActivity.get().displayProduct(product);
+        dashboardsFragmentWeakReference.get().updateMonthGraph(dashResource);
     }
 }

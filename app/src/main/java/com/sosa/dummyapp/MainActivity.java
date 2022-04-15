@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "BUTTON PRESSED");
             TextView titleTextView = findViewById(R.id.titleTextView);
             titleTextView.setText(R.string.helloworld);                     //Pressing button will get a product data and display it
-            getAndShowProduct(index);
+//            getAndShowProduct(index);
             index++;
         });
 
