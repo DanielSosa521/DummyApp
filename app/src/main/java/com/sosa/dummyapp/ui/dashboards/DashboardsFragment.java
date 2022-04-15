@@ -71,7 +71,7 @@ public class DashboardsFragment extends Fragment {
         });
 
         GetDashboardContentTask task = new GetDashboardContentTask(this);
-        task.execute(localhost + "/dashboard");
+        task.execute(localhost + "/dashboard/month");
 
         return root;
 
