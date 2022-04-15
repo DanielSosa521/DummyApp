@@ -29,7 +29,9 @@ public class ScheduleFragment extends Fragment {
      * Link to TimePicker tutorial : https://www.youtube.com/watch?v=c6c1giRekB4
      */
     Button morningTimePickerButton;
-    int hour, minute;
+    int hourMorning, minuteMorning;
+    Button nightTimePickerButton;
+    int hourNight, minuteNight;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,12 +48,29 @@ public class ScheduleFragment extends Fragment {
                 TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        hour = selectedHour;
-                        minute = selectedMinute;
-                        morningTimePickerButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                        hourMorning = selectedHour;
+                        minuteMorning = selectedMinute;
+                        morningTimePickerButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hourMorning, minuteMorning));
                     }
                 };
-                TimePickerDialog dialog = new TimePickerDialog(getContext(), onTimeSetListener, hour, minute, false);
+                TimePickerDialog dialog = new TimePickerDialog(getContext(), onTimeSetListener, hourMorning, minuteMorning, false);
+                dialog.setTitle("Select Time");
+                dialog.show();
+            }
+        });
+        nightTimePickerButton = root.findViewById(R.id.nightTimePickerButton);
+        nightTimePickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        hourNight = selectedHour;
+                        minuteNight = selectedMinute;
+                        nightTimePickerButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hourNight, minuteNight));
+                    }
+                };
+                TimePickerDialog dialog = new TimePickerDialog(getContext(), onTimeSetListener, hourNight, minuteNight, false);
                 dialog.setTitle("Select Time");
                 dialog.show();
             }
