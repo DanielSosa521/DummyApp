@@ -6,9 +6,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.sosa.dummyapp.DashboardResource;
 import com.sosa.dummyapp.ui.dashboards.fragments.MonthFragment;
 import com.sosa.dummyapp.ui.dashboards.fragments.DayFragment;
 import com.sosa.dummyapp.ui.dashboards.fragments.PlugsFragment;
+
+import java.util.Date;
 
 public class FragmentAdapter extends FragmentStateAdapter {
 
@@ -17,15 +20,27 @@ public class FragmentAdapter extends FragmentStateAdapter {
         super(fragmentManager, lifecycle);
     }
 
+    Fragment monthFrag = new MonthFragment();
+    Fragment dayFrag = new DayFragment();
+    Fragment plugFrag = new PlugsFragment();
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {
 
         switch (position){
-            default: return new MonthFragment();
-            case 1 : return new DayFragment();
-            case 2 : return new PlugsFragment();
+            default: return monthFrag;
+            case 1 : return dayFrag;
+            case 2 : return plugFrag;
         }
+    }
+
+    public void postMonthResource(DashboardResource res){
+        ((MonthFragment)monthFrag).updateGraphWithResource(res);
+    }
+
+    public void clearMonth(){
+        ((MonthFragment)monthFrag).clearGraph();
     }
 
     @Override

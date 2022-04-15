@@ -2,6 +2,7 @@ package com.sosa.dummyapp.ui.dashboards;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,27 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.sosa.dummyapp.DashboardResource;
+import com.sosa.dummyapp.GetDashboardContentTask;
 import com.sosa.dummyapp.R;
+import com.sosa.dummyapp.databinding.FragmentDashboardsBinding;
 
 public class DashboardsFragment extends Fragment {
 
     ViewPager2 viewpager2;
     TabLayout tabLayout;
     FragmentAdapter adapter;
+    private FragmentDashboardsBinding binding;
+
+    private static final String TAG = "DashboardFragment";
+    private static final String localhost = "http://10.0.2.2:5000"; //emulator host loopback url     //"http://127.0.0.1:5000";
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DashboardsViewModel dashboardsViewModel = new ViewModelProvider(this).get(DashboardsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboards, container, false);
+        binding = FragmentDashboardsBinding.inflate(inflater, container, false);
         viewpager2 = root.findViewById(R.id.view_pager_frag);
 //        viewpager2 = getView().findViewById(R.id.view_pager_frag);
 //        tabLayout = getView().findViewById(R.id.tab_layout);
@@ -60,8 +70,18 @@ public class DashboardsFragment extends Fragment {
             }
         });
 
+        GetDashboardContentTask task = new GetDashboardContentTask(this);
+        task.execute(localhost + "/dashboard");
+
         return root;
 
+    }
+
+    public void updateMonthGraph(DashboardResource res){
+        Log.i(TAG, "DashboardFragment got Resource from AsyncTask");
+        View root = binding.getRoot();
+        adapter.clearMonth();
+        adapter.postMonthResource(res);
     }
 
 }
