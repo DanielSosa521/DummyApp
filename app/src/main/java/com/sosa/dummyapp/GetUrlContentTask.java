@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.sosa.dummyapp.ui.home.HomeFragment;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,9 +23,17 @@ public class GetUrlContentTask extends AsyncTask<String, Integer, String> {
         this.setContext(mainActivity);
     }
 
+    public GetUrlContentTask(HomeFragment fragment){
+        super();
+        this.setContext(fragment);
+        Log.i("GETURLCONTENTTASK", "HomeFragment called constructor");
+    }
+
     //This is the reference to the MainActivity. To use, do mainActivity.get()
     private WeakReference<MainActivity>  mainActivity;
+    private WeakReference<HomeFragment> homeFragmentWeakReference;
 
+    public void setContext(HomeFragment fragment){ homeFragmentWeakReference = new WeakReference<>(fragment);}
     public void setContext(MainActivity activity){
         mainActivity = new WeakReference<>(activity);
     }
@@ -36,6 +45,7 @@ public class GetUrlContentTask extends AsyncTask<String, Integer, String> {
         boolean connected = false;
         try{
             URL url = new URL(urls[0]);
+            Log.i(TAG, url.toString());
             connection = (HttpURLConnection) url.openConnection();
             prepareConnection(connection);
             connection.connect();
@@ -96,8 +106,10 @@ public class GetUrlContentTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
         Log.i(TAG, "onPostExec :: " + result);
-        DummyProduct myProduct = new Gson().fromJson(result, DummyProduct.class);
-        displayProduct(myProduct);
+        HomeResource homeResource = new Gson().fromJson(result, HomeResource.class);
+        homeFragmentWeakReference.get().updateHomeViews(homeResource);
+//        DummyProduct myProduct = new Gson().fromJson(result, DummyProduct.class);
+//        displayProduct(myProduct);
     }
 
 
