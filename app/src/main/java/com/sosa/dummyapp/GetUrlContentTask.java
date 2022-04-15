@@ -105,8 +105,13 @@ public class GetUrlContentTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String result) {
+
         Log.i(TAG, "onPostExec :: " + result);
         HomeResource homeResource = new Gson().fromJson(result, HomeResource.class);
+        if (homeResource == null){
+            Log.i(TAG, "onPostExec :: NULL content - ABORTING");        //avoid crash if connection failed
+            return;
+        }
         homeFragmentWeakReference.get().updateHomeViews(homeResource);
 //        DummyProduct myProduct = new Gson().fromJson(result, DummyProduct.class);
 //        displayProduct(myProduct);

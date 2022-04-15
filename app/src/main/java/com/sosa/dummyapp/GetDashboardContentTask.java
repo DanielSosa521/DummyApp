@@ -96,6 +96,10 @@ public class GetDashboardContentTask extends AsyncTask<String , Integer, String 
     protected void onPostExecute(String res) {
         Log.i(TAG, "onPostExec :: " + res);
         DashboardResource dashResource = new Gson().fromJson(res, DashboardResource.class);
+        if (dashResource == null){
+            Log.i(TAG, "onPostExec :: NULL content - ABORTING");        //avoid crash if connection failed
+            return;
+        }
         dashboardsFragmentWeakReference.get().updateMonthGraph(dashResource);
     }
 }

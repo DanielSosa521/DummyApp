@@ -28,13 +28,14 @@ public class DashboardsFragment extends Fragment {
     private FragmentDashboardsBinding binding;
 
     private static final String TAG = "DashboardFragment";
-    private static final String localhost = "http://10.0.2.2:5000"; //emulator host loopback url     //"http://127.0.0.1:5000";
+    private static String localhost; //emulator host loopback url     //"http://127.0.0.1:5000";
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DashboardsViewModel dashboardsViewModel = new ViewModelProvider(this).get(DashboardsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboards, container, false);
+        localhost = getResources().getString(R.string.emulator_local_host);
         binding = FragmentDashboardsBinding.inflate(inflater, container, false);
         viewpager2 = root.findViewById(R.id.view_pager_frag);
 //        viewpager2 = getView().findViewById(R.id.view_pager_frag);

@@ -24,7 +24,7 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
     private FragmentHomeBinding binding;
-    private static final String localhost = "http://10.0.2.2:5000"; //emulator host loopback url     //"http://127.0.0.1:5000";
+    private static String localhost; //emulator host loopback url     //"http://127.0.0.1:5000";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
@@ -33,10 +33,10 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        localhost = getResources().getString(R.string.emulator_local_host);
         Log.i(TAG, "Creating GetUrlContentTask");
         GetUrlContentTask task = new GetUrlContentTask(this);
         task.execute(localhost + "/home");
-
 
         return root;
     }
