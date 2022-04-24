@@ -32,11 +32,7 @@ public class MainActivity extends AppCompatActivity {
             index++;
         });
 
-        FloatingActionButton navFloatingActionBtn = findViewById(R.id.navFloatingActionBtn);
-        navFloatingActionBtn.setOnClickListener(view -> {
-            Log.i(TAG, "NavBtn pressed!");
-            openActivity();
-        });
+
     }
 
     @SuppressLint("SetTextI18n")

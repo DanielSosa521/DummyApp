@@ -1,5 +1,6 @@
 package com.sosa.dummyapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sosa.dummyapp.tasks.LoginTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,15 +83,40 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "Login button pressed!");
+                if (username.getText().toString().isEmpty() ||
+                        password.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Please enter both values",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 doLogin();
             }
         });
+        FloatingActionButton navFloatingActionBtn = getView().findViewById(R.id.navFloatingActionBtn);
+        navFloatingActionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "FAB pressed!");
+                openActivity();
+            }
+        });
+//        navFloatingActionBtn.setOnClickListener(view -> {
+//            Log.i(TAG, "NavBtn pressed!");
+//            openActivity();
+//        });
+    }
+
+    public void openActivity(){
+        Log.i(TAG, "Going to nav activity!");
+        Intent intent = new Intent(this.getContext(), NavigationMenuActivity.class);
+        startActivity(intent);
     }
 
     private void doLogin(){
         String user = username.getText().toString();
         String pword = password.getText().toString();
         Log.i(TAG, "Logging in with " + user + " : " + pword);
+        new LoginTask(this).execute(user, pword);
     }
 
     @Override
