@@ -1,12 +1,10 @@
 package com.sosa.dummyapp.ui.dashboards;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
-import com.sosa.dummyapp.DashboardResource;
-import com.sosa.dummyapp.GetDashboardContentTask;
+import com.sosa.dummyapp.contentresources.DashboardResource;
+import com.sosa.dummyapp.tasks.GetDashboardContentTask;
 import com.sosa.dummyapp.R;
 import com.sosa.dummyapp.databinding.FragmentDashboardsBinding;
 
@@ -29,7 +27,7 @@ public class DashboardsFragment extends Fragment {
 
     private static final String TAG = "DashboardFragment";
     private static String localhost; //emulator host loopback url     //"http://127.0.0.1:5000";
-
+    private static String webhost = "https://smartplugapi-dummy.herokuapp.com/";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +70,7 @@ public class DashboardsFragment extends Fragment {
         });
 
         GetDashboardContentTask task = new GetDashboardContentTask(this);
-        task.execute(localhost + "/dashboard/month");
+        task.execute(webhost + "/dashboard/month");
 
         return root;
 

@@ -1,9 +1,10 @@
-package com.sosa.dummyapp;
+package com.sosa.dummyapp.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.sosa.dummyapp.contentresources.DashboardResource;
 import com.sosa.dummyapp.ui.dashboards.DashboardsFragment;
 
 import java.io.BufferedReader;

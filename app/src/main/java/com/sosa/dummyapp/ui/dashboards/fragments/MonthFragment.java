@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.sosa.dummyapp.DashboardResource;
+import com.sosa.dummyapp.contentresources.DashboardResource;
 import com.sosa.dummyapp.R;
 
 /**

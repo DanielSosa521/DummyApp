@@ -1,4 +1,4 @@
-package com.sosa.dummyapp;
+package com.sosa.dummyapp.contentresources;
 
 import java.util.Arrays;
 
