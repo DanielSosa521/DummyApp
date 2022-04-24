@@ -11,12 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.sosa.dummyapp.GetUrlContentTask;
-import com.sosa.dummyapp.HomeResource;
+import com.sosa.dummyapp.tasks.GetHomeContentTask;
+import com.sosa.dummyapp.contentresources.HomeResource;
 import com.sosa.dummyapp.R;
 import com.sosa.dummyapp.databinding.FragmentHomeBinding;
-
-import org.w3c.dom.Text;
 
 import java.util.Arrays;
 
@@ -25,6 +23,7 @@ public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
     private FragmentHomeBinding binding;
     private static String localhost; //emulator host loopback url     //"http://127.0.0.1:5000";
+    private static String webhost = "https://smartplugapi-dummy.herokuapp.com/";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
@@ -35,8 +34,8 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         localhost = getResources().getString(R.string.emulator_local_host);
         Log.i(TAG, "Creating GetUrlContentTask");
-        GetUrlContentTask task = new GetUrlContentTask(this);
-        task.execute(localhost + "/home");
+        GetHomeContentTask task = new GetHomeContentTask(this);
+        task.execute(webhost + "/home");
 
         return root;
     }

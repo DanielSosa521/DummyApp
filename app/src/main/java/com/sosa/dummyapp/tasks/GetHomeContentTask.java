@@ -1,9 +1,12 @@
-package com.sosa.dummyapp;
+package com.sosa.dummyapp.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.sosa.dummyapp.contentresources.DummyProduct;
+import com.sosa.dummyapp.MainActivity;
+import com.sosa.dummyapp.contentresources.HomeResource;
 import com.sosa.dummyapp.ui.home.HomeFragment;
 
 import java.io.BufferedReader;
@@ -13,17 +16,17 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GetUrlContentTask extends AsyncTask<String, Integer, String> {
+public class GetHomeContentTask extends AsyncTask<String, Integer, String> {
 
     private static final String TAG = "GetUrlContentTask";
 
     //We need to pass in the MainActivity so we send it commands from this Task
-    public GetUrlContentTask(MainActivity mainActivity){
+    public GetHomeContentTask(MainActivity mainActivity){
         super();
         this.setContext(mainActivity);
     }
 
-    public GetUrlContentTask(HomeFragment fragment){
+    public GetHomeContentTask(HomeFragment fragment){
         super();
         this.setContext(fragment);
         Log.i("GETURLCONTENTTASK", "HomeFragment called constructor");

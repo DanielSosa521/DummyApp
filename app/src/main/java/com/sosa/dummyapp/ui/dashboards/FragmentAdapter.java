@@ -6,12 +6,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.sosa.dummyapp.DashboardResource;
+import com.sosa.dummyapp.contentresources.DashboardResource;
 import com.sosa.dummyapp.ui.dashboards.fragments.MonthFragment;
 import com.sosa.dummyapp.ui.dashboards.fragments.DayFragment;
 import com.sosa.dummyapp.ui.dashboards.fragments.PlugsFragment;
-
-import java.util.Date;
 
 public class FragmentAdapter extends FragmentStateAdapter {
 

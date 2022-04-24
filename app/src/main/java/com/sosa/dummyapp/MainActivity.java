@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sosa.dummyapp.contentresources.DummyProduct;
+import com.sosa.dummyapp.tasks.GetHomeContentTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getAndShowProduct(int index){                              //This is my method to get product data from dummyjson.com
         Log.i(TAG, "getAndShowProduct(" + index + ")");
-        GetUrlContentTask urlContentTask = new GetUrlContentTask(this);     //the task then calls displayProduct() to update all the views
+        GetHomeContentTask urlContentTask = new GetHomeContentTask(this);     //the task then calls displayProduct() to update all the views
         String myURL = "https://dummyjson.com/products/" + index;
         Log.i(TAG, "Target URL : " + myURL);
         urlContentTask.execute(myURL);          //run the task
