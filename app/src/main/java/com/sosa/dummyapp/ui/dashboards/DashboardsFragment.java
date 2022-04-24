@@ -22,7 +22,7 @@ public class DashboardsFragment extends Fragment {
 
     ViewPager2 viewpager2;
     TabLayout tabLayout;
-    FragmentAdapter adapter;
+    DashboardFragmentAdapter adapter;
     private FragmentDashboardsBinding binding;
 
     private static final String TAG = "DashboardFragment";
@@ -40,7 +40,7 @@ public class DashboardsFragment extends Fragment {
 //        tabLayout = getView().findViewById(R.id.tab_layout);
         tabLayout = root.findViewById(R.id.tab_layout_frag);
         FragmentManager manager = getParentFragmentManager();
-        adapter = new FragmentAdapter(manager, getLifecycle());
+        adapter = new DashboardFragmentAdapter(manager, getLifecycle());
         viewpager2.setAdapter(adapter);
         tabLayout.addTab(tabLayout.newTab().setText("Month"));
         tabLayout.addTab(tabLayout.newTab().setText("Day"));

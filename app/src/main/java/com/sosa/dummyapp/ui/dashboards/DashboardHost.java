@@ -13,7 +13,7 @@ public class DashboardHost extends AppCompatActivity {
 
     ViewPager2 viewpager2;
     TabLayout tabLayout;
-    FragmentAdapter adapter;
+    DashboardFragmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class DashboardHost extends AppCompatActivity {
         viewpager2 = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tab_layout);
         FragmentManager manager = getSupportFragmentManager();
-        adapter = new FragmentAdapter(manager, getLifecycle());
+        adapter = new DashboardFragmentAdapter(manager, getLifecycle());
         viewpager2.setAdapter(adapter);
         tabLayout.addTab(tabLayout.newTab().setText("First page"));
         tabLayout.addTab(tabLayout.newTab().setText("Second page"));
