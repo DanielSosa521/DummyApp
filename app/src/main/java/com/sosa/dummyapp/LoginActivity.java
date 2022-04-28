@@ -19,15 +19,13 @@ public class LoginActivity extends AppCompatActivity {
     TabLayout tabLayout;
     LoginFragmentAdapter adapter;
     private static final String TAG = "LoginActivity";
-    private static String localhost; //emulator host loopback url     //"http://127.0.0.1:5000";
-    private static String webhost = "https://smartplugapi-dummy.herokuapp.com/";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        localhost = getResources().getString(R.string.emulator_local_host);
+        //emulator host loopback url     //"http://127.0.0.1:5000";
         viewpager = findViewById(R.id.view_pager_login);
         tabLayout = findViewById(R.id.tab_layout_login);
         FragmentManager manager = getSupportFragmentManager();

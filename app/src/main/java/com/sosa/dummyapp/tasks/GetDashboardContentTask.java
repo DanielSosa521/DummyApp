@@ -2,6 +2,7 @@ package com.sosa.dummyapp.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sosa.dummyapp.contentresources.DashboardResource;
@@ -99,6 +100,8 @@ public class GetDashboardContentTask extends AsyncTask<String , Integer, String 
         DashboardResource dashResource = new Gson().fromJson(res, DashboardResource.class);
         if (dashResource == null){
             Log.i(TAG, "onPostExec :: NULL content - ABORTING");        //avoid crash if connection failed
+            Toast.makeText(dashboardsFragmentWeakReference.get().getContext(),
+                    "Failed to get Dashboard Resource data", Toast.LENGTH_SHORT).show();
             return;
         }
         dashboardsFragmentWeakReference.get().updateMonthGraph(dashResource);

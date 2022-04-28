@@ -2,20 +2,16 @@ package com.sosa.dummyapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sosa.dummyapp.tasks.LoginTask;
 
@@ -69,41 +65,25 @@ public class LoginFragment extends Fragment {
     }
 
 
-    EditText username;
-    EditText password;
+    private EditText username;
+    private EditText password;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //work here
-        username = getView().findViewById(R.id.login_username_edittext);
-        password = getView().findViewById(R.id.login_password_edittext);
-        Button loginButton = getView().findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "Login button pressed!");
-                if (username.getText().toString().isEmpty() ||
-                        password.getText().toString().isEmpty()){
-                    Toast.makeText(getContext(), "Please enter both values",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                doLogin();
-            }
+        username = requireView().findViewById(R.id.login_username_edittext);
+        password = requireView().findViewById(R.id.login_password_edittext);
+        Button loginButton = requireView().findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(view12 -> {
+            Log.i(TAG, "Login button pressed!");
+            doLogin();
         });
-        FloatingActionButton navFloatingActionBtn = getView().findViewById(R.id.navFloatingActionBtn);
-        navFloatingActionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "FAB pressed!");
-                openActivity();
-            }
+        FloatingActionButton navFloatingActionBtn = requireView().findViewById(R.id.navFloatingActionBtn);
+        navFloatingActionBtn.setOnClickListener(view1 -> {
+            Log.i(TAG, "FAB pressed!");
+            openActivity();
         });
-//        navFloatingActionBtn.setOnClickListener(view -> {
-//            Log.i(TAG, "NavBtn pressed!");
-//            openActivity();
-//        });
     }
 
     public void openActivity(){
@@ -114,9 +94,15 @@ public class LoginFragment extends Fragment {
 
     private void doLogin(){
         String user = username.getText().toString();
-        String pword = password.getText().toString();
-        Log.i(TAG, "Logging in with " + user + " : " + pword);
-        new LoginTask(this).execute(user, pword);
+        String pass = password.getText().toString();
+        if (user.isEmpty() ||
+                pass.isEmpty()){
+            Toast.makeText(getContext(), "Please enter both values",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.i(TAG, "Logging in with " + user + " : " + pass);
+        new LoginTask(this).execute(user, pass);
     }
 
     @Override

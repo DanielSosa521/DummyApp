@@ -14,13 +14,19 @@ public class LoginFragmentAdapter extends FragmentStateAdapter {
 
     Fragment loginFrag = new LoginFragment();
     Fragment registerFrag = new RegisterFragment();
+
+    /**
+     * Determines which fragment to provide. Currently only has login and register but may add more in future
+     * @param position Position of viewpager
+     * @return Corresponding fragment
+     */
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position){
-            default : return loginFrag;
-            case 1 : return registerFrag;
+        if (position == 1) {
+            return registerFrag;
         }
+        return loginFrag;
     }
 
     @Override
