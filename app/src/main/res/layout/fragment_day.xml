@@ -8,9 +8,8 @@
     <!--line graph view where we will be displaying
         out data-->
     <com.jjoe64.graphview.GraphView
-        android:id="@+id/graphOne"
+        android:id="@+id/graphDay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

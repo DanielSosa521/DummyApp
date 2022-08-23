@@ -21,6 +21,8 @@ public class DashboardsFragment extends Fragment {
     ViewPager2 viewpager2;
     TabLayout tabLayout;
     DashboardFragmentAdapter adapter;
+    DashboardsFragment thisReference = this;
+
 
     private static final String TAG = "DashboardFragment";
     private static final String webhost = "https://smartplugapi-dummy.herokuapp.com/";
@@ -29,8 +31,10 @@ public class DashboardsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_dashboards, container, false);
+
+
         //emulator host loopback url     //"http://127.0.0.1:5000";
-        String localhost = getResources().getString(R.string.emulator_local_host);
+//        String localhost = getResources().getString(R.string.emulator_local_host);
         viewpager2 = root.findViewById(R.id.view_pager_frag);
         tabLayout = root.findViewById(R.id.tab_layout_frag);
         FragmentManager manager = getParentFragmentManager();
@@ -43,6 +47,24 @@ public class DashboardsFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewpager2.setCurrentItem(tab.getPosition());
+                switch (tab.getPosition()){
+                    case 0 :
+                        Log.i(TAG, "Month tab");
+                        GetDashboardContentTask monthTask = new GetDashboardContentTask(thisReference);
+                        monthTask.setTarget("month");
+                        monthTask.execute(webhost + "/dashboard/month");
+                        break;
+                    case 1 :
+                        Log.i(TAG, "Day tab");
+                        GetDashboardContentTask dayTask = new GetDashboardContentTask(thisReference);
+                        dayTask.setTarget("day");
+                        dayTask.execute(webhost + "/dashboard/day");
+                        break;
+                    case 2 :
+                        Log.i(TAG, "Plug tab");
+                        break;
+                    default: Log.i(TAG, "Invalid tab selected");
+                }
             }
 
             @Override
@@ -63,17 +85,26 @@ public class DashboardsFragment extends Fragment {
             }
         });
 
-        GetDashboardContentTask task = new GetDashboardContentTask(this);
-        task.execute(webhost + "/dashboard/month");
+        //Need to execute this at start to populate graph
+        GetDashboardContentTask monthTask = new GetDashboardContentTask(thisReference);
+        monthTask.setTarget("month");
+        monthTask.execute(webhost + "/dashboard/month");
 
         return root;
 
     }
 
+
     public void updateMonthGraph(DashboardResource res){
-        Log.i(TAG, "DashboardFragment got Resource from AsyncTask");
+        Log.i(TAG, "DashboardFragment got Month Resource");
         adapter.clearMonth();
         adapter.postMonthResource(res);
+    }
+
+    public void updateDayGraph(DashboardResource res){
+        Log.i(TAG, "DashboardFragment got Day Resource");
+        adapter.clearDay();
+        adapter.postDayResource(res);
     }
 
 }

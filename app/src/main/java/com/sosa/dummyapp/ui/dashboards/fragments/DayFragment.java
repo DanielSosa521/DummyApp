@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.sosa.dummyapp.R;
+import com.sosa.dummyapp.contentresources.DashboardResource;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +23,8 @@ import com.sosa.dummyapp.R;
  * create an instance of this fragment.
  */
 public class DayFragment extends Fragment {
+
+    private static final String TAG = "DayFragment";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,10 +66,12 @@ public class DayFragment extends Fragment {
         }
     }
 
+    GraphView graphView;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        GraphView graphView = getView().findViewById(R.id.graphOne);
+        graphView = getView().findViewById(R.id.graphDay);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(0, 5),
                 new DataPoint(6, 5),
@@ -85,6 +91,36 @@ public class DayFragment extends Fragment {
         graphView.getViewport().setYAxisBoundsManual(true);
         graphView.getViewport().setMinY(0);
         graphView.getViewport().setMaxY(25);
+    }
+
+    /**
+     * Draw data from DashboardResource on the graph
+     * Clears all previously drawn series
+     * @param res Resource with DataPoint data
+     */
+    public void updateGraphWithResource(DashboardResource res){
+        clearGraph();
+        Integer[] p = res.getPoints();
+        if (p.length % 2 != 0){
+            Log.i(TAG, "ERROR : DashboardResource invalid length: Odd number of data");
+            return;
+        }
+        int cnt = p.length;
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+        for (int i = 0; i < cnt; i+=2) {
+            DataPoint point = new DataPoint(p[i], p[i+1]);
+            Log.i(TAG, point.toString());
+            series.appendData(point, false, 30);
+        }
+        graphView.addSeries(series);
+    }
+
+    /**
+     * Wipe the graph so its empty
+     */
+    public void clearGraph(){
+        graphView.removeAllSeries();
+        Log.i(TAG, "Day graph cleared");
     }
 
     @Override

@@ -65,7 +65,7 @@ public class PlugsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        GraphView graphView = getView().findViewById(R.id.graphOne);
+        GraphView graphView = getView().findViewById(R.id.graphPlug);
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{
                 new DataPoint(1, 5),
                 new DataPoint(2, 3),

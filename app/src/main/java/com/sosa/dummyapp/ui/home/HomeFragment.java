@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         //emulator host loopback url     //"http://127.0.0.1:5000";
-        String localhost = getResources().getString(R.string.emulator_local_host);
+//        String localhost = getResources().getString(R.string.emulator_local_host);
         Log.i(TAG, "Creating GetUrlContentTask");
         GetHomeContentTask task = new GetHomeContentTask(this);
         task.execute(webhost + "/home");

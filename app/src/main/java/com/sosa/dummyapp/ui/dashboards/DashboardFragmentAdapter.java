@@ -37,9 +37,15 @@ public class DashboardFragmentAdapter extends FragmentStateAdapter {
         ((MonthFragment)monthFrag).updateGraphWithResource(res);
     }
 
+    public void postDayResource(DashboardResource res){
+        ((DayFragment)dayFrag).updateGraphWithResource(res);
+    }
+
     public void clearMonth(){
         ((MonthFragment)monthFrag).clearGraph();
     }
+
+    public void clearDay() { ((DayFragment)dayFrag).clearGraph(); }
 
     @Override
     public int getItemCount() {
