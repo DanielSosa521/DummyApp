@@ -1,5 +1,7 @@
 package com.sosa.dummyapp.contentresources;
 
+import androidx.annotation.NonNull;
+
 import java.util.Arrays;
 
 /**
@@ -49,6 +51,7 @@ public class HomeResource {
         plugs = null;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "HomeResource{" +

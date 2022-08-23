@@ -71,7 +71,7 @@ public class MonthFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        graphView = getView().findViewById(R.id.graphOne);
+        graphView = getView().findViewById(R.id.graphMonth);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(1, 500),
                 new DataPoint(2, 450),

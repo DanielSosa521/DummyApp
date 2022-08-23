@@ -2,13 +2,11 @@ package com.sosa.dummyapp.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.sosa.dummyapp.contentresources.DummyProduct;
-import com.sosa.dummyapp.MainActivity;
 import com.sosa.dummyapp.contentresources.HomeResource;
 import com.sosa.dummyapp.ui.home.HomeFragment;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,28 +16,19 @@ import java.net.URL;
 
 public class GetHomeContentTask extends AsyncTask<String, Integer, String> {
 
-    private static final String TAG = "GetUrlContentTask";
+    private static final String TAG = "GetHomeContentTask";
 
-    //We need to pass in the MainActivity so we send it commands from this Task
-    public GetHomeContentTask(MainActivity mainActivity){
-        super();
-        this.setContext(mainActivity);
-    }
-
+    //We need to pass in the HomeFragment so we send it commands from this Task
     public GetHomeContentTask(HomeFragment fragment){
         super();
         this.setContext(fragment);
-        Log.i("GETURLCONTENTTASK", "HomeFragment called constructor");
+        Log.i(TAG, "HomeFragment called constructor");
     }
 
     //This is the reference to the MainActivity. To use, do mainActivity.get()
-    private WeakReference<MainActivity>  mainActivity;
     private WeakReference<HomeFragment> homeFragmentWeakReference;
 
     public void setContext(HomeFragment fragment){ homeFragmentWeakReference = new WeakReference<>(fragment);}
-    public void setContext(MainActivity activity){
-        mainActivity = new WeakReference<>(activity);
-    }
 
     @Override
     protected String doInBackground(String... urls) {
@@ -98,7 +87,7 @@ public class GetHomeContentTask extends AsyncTask<String, Integer, String> {
         connection.setRequestMethod("GET");
         connection.setConnectTimeout(5000);
         connection.setReadTimeout(5000);
-        Log.i(TAG, "Connecting...");
+        Log.i(TAG, "Connection prepared...");
     }
 
     @Override
@@ -108,22 +97,15 @@ public class GetHomeContentTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
         Log.i(TAG, "onPostExec :: " + result);
         HomeResource homeResource = new Gson().fromJson(result, HomeResource.class);
         if (homeResource == null){
             Log.i(TAG, "onPostExec :: NULL content - ABORTING");        //avoid crash if connection failed
+            Toast.makeText(homeFragmentWeakReference.get().getContext(),
+                    "Failed to get Home Resource data", Toast.LENGTH_SHORT).show();
             return;
         }
         homeFragmentWeakReference.get().updateHomeViews(homeResource);
-//        DummyProduct myProduct = new Gson().fromJson(result, DummyProduct.class);
-//        displayProduct(myProduct);
     }
 
-
-
-    private void displayProduct(DummyProduct product){
-        Log.i(TAG, "Displaying product on screen!");
-        mainActivity.get().displayProduct(product);
-    }
 }

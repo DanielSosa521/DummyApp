@@ -1,6 +1,5 @@
 package com.sosa.dummyapp.contentresources;
 
-import android.graphics.drawable.Drawable;
 
 /**
  * Class DummyProduct
@@ -31,52 +30,16 @@ public class DummyProduct {
     private final String title;
     private final String description;
     private final int price;
-    private final double discountPercentage;
     private final double rating;
-    private final int stock;
     private final String brand;
-    private final String category;
-    private final String thumbnail;
-    private final String[] images;
-    private Drawable drawable;
 
     public DummyProduct(){
         id = -1;
         title = null;
         description = null;
         price = -1;
-        discountPercentage = -1.0;
         rating = -1.0;
-        stock = -1;
         brand = null;
-        category = null;
-        thumbnail = null;
-        images = null;
-    }
-
-    public void setDrawable(Drawable drawable) {
-        this.drawable = drawable;
-    }
-
-    public Drawable getDrawable() {
-        return drawable;
-    }
-
-    public String getImageURL(){
-        assert images != null;
-        if (images.length != 0){
-            return images[0];
-        } else {
-            return null;
-        }
-    }
-
-    public String[] getImages() {
-        return images;
-    }
-
-    public double getDiscountPercentage() {
-        return discountPercentage;
     }
 
     public double getRating() {
@@ -91,24 +54,12 @@ public class DummyProduct {
         return price;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
     public String getBrand() {
         return brand;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
     }
 
     public String getTitle() {

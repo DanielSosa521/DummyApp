@@ -2,6 +2,7 @@ package com.sosa.dummyapp.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sosa.dummyapp.contentresources.DashboardResource;
@@ -18,6 +19,7 @@ public class GetDashboardContentTask extends AsyncTask<String , Integer, String 
 
     private static final String TAG = "GetDashboardContentTask";
     private WeakReference<DashboardsFragment> dashboardsFragmentWeakReference;
+    private String target = "";
 
     //Pass in DashboardFragment to send commands
     public GetDashboardContentTask(DashboardsFragment fragment){
@@ -27,6 +29,11 @@ public class GetDashboardContentTask extends AsyncTask<String , Integer, String 
     }
 
     public void setContext(DashboardsFragment fragment){dashboardsFragmentWeakReference = new WeakReference<>(fragment);}
+
+    public void setTarget(String target){
+        this.target = target;
+        Log.i(TAG, "Target set to " + this.target);
+    }
 
     @Override
     protected String doInBackground(String... urls) {
@@ -99,8 +106,15 @@ public class GetDashboardContentTask extends AsyncTask<String , Integer, String 
         DashboardResource dashResource = new Gson().fromJson(res, DashboardResource.class);
         if (dashResource == null){
             Log.i(TAG, "onPostExec :: NULL content - ABORTING");        //avoid crash if connection failed
+            Toast.makeText(dashboardsFragmentWeakReference.get().getContext(),
+                    "Failed to get Dashboard Resource data", Toast.LENGTH_SHORT).show();
             return;
         }
-        dashboardsFragmentWeakReference.get().updateMonthGraph(dashResource);
+        if (target.equals("month")) {
+            dashboardsFragmentWeakReference.get().updateMonthGraph(dashResource);
+        }
+        else if (target.equals("day")){
+            dashboardsFragmentWeakReference.get().updateDayGraph(dashResource);
+        }
     }
 }

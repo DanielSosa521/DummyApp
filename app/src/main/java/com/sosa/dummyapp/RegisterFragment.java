@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,27 +71,26 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //work here
-        email = getView().findViewById(R.id.register_email_edittext);
-        username = getView().findViewById(R.id.register_username_edittext);
-        password = getView().findViewById(R.id.register_password_edittext);
-        confirmedPassword = getView().findViewById(R.id.register_confirmpassword_edittext);
-        Button registerButton = getView().findViewById(R.id.registerButton);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "Register button pressed!");
-                doRegister();
-            }
+        email = requireView().findViewById(R.id.register_email_edittext);
+        username = requireView().findViewById(R.id.register_username_edittext);
+        password = requireView().findViewById(R.id.register_password_edittext);
+        confirmedPassword = requireView().findViewById(R.id.register_confirmpassword_edittext);
+        Button registerButton = requireView().findViewById(R.id.registerButton);
+        registerButton.setOnClickListener(view1 -> {
+            Log.i(TAG, "Register button pressed!");
+            doRegister();
         });
 
     }
 
+    //TODO Check for nonempty fiels like in LoginFragment::doLogin
+    //  raise toast in simlar fashion to LoginFragment::doLogin
     private void doRegister(){
         String em = email.getText().toString();
         String uname = username.getText().toString();
-        String pword = password.getText().toString();
+        String pass = password.getText().toString();
         String confPword = confirmedPassword.getText().toString();
-        Log.i(TAG, "Registering : " + em + ", " + uname +", " + pword
+        Log.i(TAG, "Registering : " + em + ", " + uname +", " + pass
          + ", " + confPword);
     }
 

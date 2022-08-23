@@ -1,5 +1,7 @@
 package com.sosa.dummyapp.contentresources;
 
+import androidx.annotation.NonNull;
+
 import java.util.Arrays;
 
 /**
@@ -26,6 +28,7 @@ public class DashboardResource {
         points = null;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "DashboardResource{" +
