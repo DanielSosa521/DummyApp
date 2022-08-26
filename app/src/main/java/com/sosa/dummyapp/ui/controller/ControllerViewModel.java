@@ -1,4 +1,4 @@
-package com.sosa.dummyapp.ui.settings;
+package com.sosa.dummyapp.ui.controller;
 
 import android.util.Log;
 
@@ -6,16 +6,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SettingsViewModel extends ViewModel {
+public class ControllerViewModel extends ViewModel {
 
-    private static final String TAG = "SettingsViewModel";
+    private static final String TAG = "ControllerViewModel";
 
     private final MutableLiveData<String> mText;
 
-    public SettingsViewModel() {
+    public ControllerViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is settings fragment");
-        Log.i(TAG, "Updated settings textview");
+        mText.setValue("This is controller fragment");
+        Log.i(TAG, "Updated controller textview");
     }
 
     public LiveData<String> getText() {

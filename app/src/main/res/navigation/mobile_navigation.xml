@@ -16,6 +16,11 @@
         android:label="@string/menu_dashboard"
         tools:layout="@layout/fragment_dashboards" />
     <fragment
+        android:id="@+id/nav_controller"
+        android:name="com.sosa.dummyapp.ui.controller.ControllerFragment"
+        android:label="@string/menu_controller"
+        tools:layout="@layout/fragment_controller" />
+    <fragment
         android:id="@+id/nav_schedule"
         android:name="com.sosa.dummyapp.ui.schedule.ScheduleFragment"
         android:label="@string/menu_schedule"
