@@ -1,8 +1,10 @@
 package com.sosa.dummyapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -42,6 +44,7 @@ public class NavigationMenuActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation_menu);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override
@@ -56,5 +59,11 @@ public class NavigationMenuActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation_menu);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void openAboutActivity(MenuItem item) {
+        Log.i(TAG, "Opening about page");
+        Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+        startActivity(intent);
     }
 }
