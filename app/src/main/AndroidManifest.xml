@@ -12,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DummyApp">
-<!--        android:usesCleartextTraffic="true"-->
-
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
+        <!-- android:usesCleartextTraffic="true" -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -31,15 +33,6 @@
             android:exported="false"
             android:label="@string/title_activity_navigation_menu"
             android:theme="@style/Theme.DummyApp.NoActionBar" />
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
     </application>
 
 </manifest>
