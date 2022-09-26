@@ -12,6 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.sosa.dummyapp.tasks.RegisterTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,15 +89,40 @@ public class RegisterFragment extends Fragment {
 
     }
 
-    //TODO Check for nonempty fiels like in LoginFragment::doLogin
-    //  raise toast in simlar fashion to LoginFragment::doLogin
+
     private void doRegister(){
         String em = email.getText().toString();
-        String uname = username.getText().toString();
+        String uname = username.getText().toString();                       //Grab strings from inputs
         String pass = password.getText().toString();
         String confPword = confirmedPassword.getText().toString();
+
+        if (em.isEmpty() || uname.isEmpty() || pass.isEmpty() || confPword.isEmpty()){      //Make sure values are not empty
+            Log.i(TAG, "Empty field in register fields");
+            Toast.makeText(getContext(), "Please enter all values",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!pass.equals(confPword)){               //Check password == confirmed password
+            Log.i(TAG, "Passwords to not match");
+            Toast.makeText(getContext(), "Confirmed password does not match password. Please fix", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Log.i(TAG, "Registering : " + em + ", " + uname +", " + pass
          + ", " + confPword);
+        //TODO : Execute POST request to API with register info payload
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("email", em);
+            postData.put("username", uname);
+            postData.put("password", pass);
+            Log.i(TAG, "Launched RegisterTask with postData=" + postData.toString());
+            RegisterTask registerTask = new RegisterTask(this);
+            registerTask.execute(postData.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
