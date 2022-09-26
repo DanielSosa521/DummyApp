@@ -11,9 +11,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
@@ -23,6 +25,8 @@ import java.util.Arrays;
  * UPDATED REFERENCE : https://stackoverflow.com/questions/35390928/how-to-send-json-object-to-the-server-from-my-android-app
  */
 public class RegisterTask extends AsyncTask<String, String, String> {
+
+    //TODO : Figure this shit out bruh damn
 
     private static final String TAG = "RegisterTask";
     private WeakReference<RegisterFragment> registerFragmentWeakReference;
@@ -47,10 +51,34 @@ public class RegisterTask extends AsyncTask<String, String, String> {
         String data = "";
 
         try {
-            URL url = new URL(localhost+REGISTERENDPOINT);
+            URL url = new URL("http://ptsv2.com/t/0c7zd-1664227906");
             Log.i(TAG, url.toString());
             connection = (HttpURLConnection) url.openConnection();
-            prepareConnection(connection);
+//            prepareConnection(connection);
+            connection.setConnectTimeout(5000);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+
+            String jsonInputString = "{\"username\":\"Daniel\", \"password\":\"dallas\"}";
+
+            Log.i(TAG, "Sending json : " + jsonInputString);
+//            try (OutputStream os = connection.getOutputStream()) {
+//                byte[] input = jsonInputString.getBytes("utf-8");
+//                os.write(input, 0, input.length);
+//            }
+//
+//            try(BufferedReader br = new BufferedReader(
+//                    new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+//                StringBuilder response = new StringBuilder();
+//                String responseLine = null;
+//                while ((responseLine = br.readLine()) != null) {
+//                    response.append(responseLine.trim());
+//                }
+//                System.out.println(response.toString());
+//            }
+//
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             wr.writeBytes("PostData=" + strings[0]);
@@ -93,7 +121,7 @@ public class RegisterTask extends AsyncTask<String, String, String> {
     private void prepareConnection(HttpURLConnection connection) throws IOException {
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
-        //connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
 
     }
 
