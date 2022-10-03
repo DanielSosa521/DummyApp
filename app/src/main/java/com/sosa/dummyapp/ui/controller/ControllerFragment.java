@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sosa.dummyapp.R;
 import com.sosa.dummyapp.ui.settings.SettingsViewModel;
@@ -21,21 +23,29 @@ public class ControllerFragment extends Fragment {
 
     private static final String TAG = "ControllerFragment";
 
-    private ControllerViewModel mViewModel;
-
-    public static ControllerFragment newInstance() {
-        return new ControllerFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         Log.i(TAG, "Created new instance");
-        ControllerViewModel controllerViewModel = new ViewModelProvider(this).get(ControllerViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_controller, container, false);
-        final TextView textView = root.findViewById(R.id.text_controller);
-        controllerViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        View view = inflater.inflate(R.layout.fragment_controller, container, false);
+        Button button1 = (Button) view.findViewById(R.id.SendPowerSignal1);
+        button1.setOnClickListener(v -> {
+            // Do Something
+            Toast.makeText(super.getContext(), "Button 1 Pressed", Toast.LENGTH_SHORT).show();
+        });
+
+        Button button2 = (Button) view.findViewById(R.id.SendPowerSignal2);
+        button2.setOnClickListener(v -> {
+            // Do Something
+            Toast.makeText(super.getContext(), "Button 2 Pressed", Toast.LENGTH_SHORT).show();
+        });
+
+        Button button3 = (Button) view.findViewById(R.id.SendPowerSignal3);
+        button3.setOnClickListener(v -> {
+            // Do Something
+            Toast.makeText(super.getContext(), "Button 3 Pressed", Toast.LENGTH_SHORT).show();
+        });
+        return view;
     }
 
 
