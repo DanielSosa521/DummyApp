@@ -36,6 +36,16 @@
         <entry key="..\:/Users/danie/AndroidStudioProjects/DummyApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/DummyApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.163" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/DummyApp/app/src/main/res/xml/root_preferences.xml" value="0.22" />
+        <entry key="app/src/main/res/drawable/ic_baseline_analytics_24.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_navigation_menu.xml" value="0.17074275362318841" />
+        <entry key="app/src/main/res/layout/activity_on_off_button.xml" value="0.20425724637681159" />
+        <entry key="app/src/main/res/layout/activity_send_mqtt_message.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/app_bar_navigation_menu.xml" value="0.17074275362318841" />
+        <entry key="app/src/main/res/layout/content_navigation_menu.xml" value="0.17074275362318841" />
+        <entry key="app/src/main/res/layout/fragment_controller.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.23697916666666666" />
       </map>
     </option>
   </component>
