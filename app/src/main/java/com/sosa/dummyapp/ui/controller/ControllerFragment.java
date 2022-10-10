@@ -17,21 +17,43 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sosa.dummyapp.R;
+
 import com.sosa.dummyapp.ui.settings.SettingsViewModel;
 
-public class ControllerFragment extends Fragment {
+import java.io.IOException;
 
+public class ControllerFragment extends Fragment {
+    // Status of the buttons
+    // This should get info from the server eventually
+    boolean Button1 = false;
+    boolean Button2 = false;
+    boolean Button3 = false;
     private static final String TAG = "ControllerFragment";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         Log.i(TAG, "Created new instance");
+        okHTTP httpRequest = new okHTTP();
         View view = inflater.inflate(R.layout.fragment_controller, container, false);
         Button button1 = (Button) view.findViewById(R.id.SendPowerSignal1);
         button1.setOnClickListener(v -> {
             // Do Something
             Toast.makeText(super.getContext(), "Button 1 Pressed", Toast.LENGTH_SHORT).show();
+            if(!Button1) {
+                try {
+                    httpRequest.run("https://smartplugapiv2.onrender.com/mqtt/on");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else{
+                try {
+                    httpRequest.run("https://smartplugapiv2.onrender.com/mqtt/off");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            Button1 = !Button1;
         });
 
         Button button2 = (Button) view.findViewById(R.id.SendPowerSignal2);
