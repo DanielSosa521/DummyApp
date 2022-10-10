@@ -13,6 +13,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_about">About</string>
     <string name="emulator_local_host">http://10.0.2.2:5000</string>
+    <string name="webhost_render">https://smartplugapiv2.onrender.com/</string>
     <string name="about_activity_text">Wattson was developed by Daniel Sosa alongside his Senior Design team at The University of Texas at Austin in 2022. Wattson is the companion app for the SmartPlug System.</string>
     <string name="menu_home">Home</string>
     <string name="menu_dashboard">Dashboards</string>

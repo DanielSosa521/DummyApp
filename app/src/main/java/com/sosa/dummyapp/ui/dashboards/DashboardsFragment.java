@@ -25,7 +25,7 @@ public class DashboardsFragment extends Fragment {
 
 
     private static final String TAG = "DashboardFragment";
-    private static final String webhost = "https://smartplugapi-dummy.herokuapp.com/";
+    private static final String webhost = "https://smartplugapiv2.onrender.com/";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
