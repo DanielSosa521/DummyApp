@@ -15,20 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sosa.dummyapp.MainActivity;
-import com.sosa.dummyapp.NavigationMenuActivity;
 import com.sosa.dummyapp.R;
-
-import com.sosa.dummyapp.ui.settings.SettingsViewModel;
 
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttp;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -53,17 +47,11 @@ public class ControllerFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(ControllerViewModel.class);
 
         Button button1 = (Button) view.findViewById(R.id.SendPowerSignal1);
-        button1.setBackgroundColor(Color.GREEN);
+        button1.setBackgroundColor(Color.DKGRAY);
         button1.setText(R.string.turnplug1on);
         button1.setOnClickListener(v -> {
-            // Do Something
             Toast.makeText(super.getContext(), "Button 1 Pressed", Toast.LENGTH_SHORT).show();
             if(!Button1) {
-//                try {
-//                    httpRequest.run("https://smartplugapiv2.onrender.com/mqtt/on", viewModel);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
                 String url = "https://smartplugapiv2.onrender.com/mqtt/on";
                 Request request = new Request.Builder()
                         .url(url)
@@ -81,18 +69,18 @@ public class ControllerFragment extends Fragment {
                             String myResponse = response.body().string();
                             System.out.println(myResponse);
                             if(myResponse.contains("confirm?")){
-                                openDialog();
+                                Log.i(TAG, "Need to confirm signal");
+                                openDialog(button1);                            //open confirm dialog passing button reference
+                            } else {
+                                Log.i(TAG, "No need to confirm signal");    //if power on without confirm
+                                button1.setBackgroundColor(Color.BLUE);          //update button look
+                                button1.setText(R.string.turnplug1off);
                             }
                         }
                     }
                 });
 
             } else{
-//                try {
-//                    httpRequest.run("https://smartplugapiv2.onrender.com/mqtt/off", viewModel);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
                 String url = "https://smartplugapiv2.onrender.com/mqtt/off";
                 Request request = new Request.Builder()
                         .url(url)
@@ -112,68 +100,143 @@ public class ControllerFragment extends Fragment {
                                                         }
                                                     });
 
+                button1.setBackgroundColor(Color.DKGRAY);
+                button1.setText(R.string.turnplug1on);
             }
             Button1 = !Button1;
         });
 
+
         Button button2 = (Button) view.findViewById(R.id.SendPowerSignal2);
-        button2.setBackgroundColor(Color.GREEN);
+        button2.setBackgroundColor(Color.DKGRAY);
         button2.setText(R.string.turnplug2on);
         button2.setOnClickListener(v -> {
-            // Do Something
             Toast.makeText(super.getContext(), "Button 2 Pressed", Toast.LENGTH_SHORT).show();
             if(!Button2) {
-                try {
-                    httpRequest.run("https://smartplugapiv2.onrender.com/mqtt/on");
-                    button2.setBackgroundColor(Color.BLUE);
-                    button2.setText(R.string.turnplug2off);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String url = "https://smartplugapiv2.onrender.com/mqtt/on";
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        if(response.isSuccessful()){
+                            String myResponse = response.body().string();
+                            System.out.println(myResponse);
+                            if(myResponse.contains("confirm?")){
+                                Log.i(TAG, "Need to confirm signal");
+                                openDialog(button2);                            //open confirm dialog passing button reference
+                            } else {
+                                Log.i(TAG, "No need to confirm signal");    //if power on without confirm
+                                button2.setBackgroundColor(Color.BLUE);          //update button look
+                                button2.setText(R.string.turnplug2off);
+                            }
+                        }
+                    }
+                });
+
             } else{
-                try {
-                    httpRequest.run("https://smartplugapiv2.onrender.com/mqtt/off");
-                    button2.setBackgroundColor(Color.GREEN);
-                    button2.setText(R.string.turnplug2on);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String url = "https://smartplugapiv2.onrender.com/mqtt/off";
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        if(response.isSuccessful()){
+                            String myResponse = response.body().string();
+                        }
+                    }
+                });
+
+                button2.setBackgroundColor(Color.DKGRAY);
+                button2.setText(R.string.turnplug2on);
             }
             Button2 = !Button2;
         });
 
+
         Button button3 = (Button) view.findViewById(R.id.SendPowerSignal3);
+        button3.setBackgroundColor(Color.DKGRAY);
         button3.setText(R.string.turnplug3on);
-        button3.setBackgroundColor(Color.GREEN);
         button3.setOnClickListener(v -> {
-            // Do Something
             Toast.makeText(super.getContext(), "Button 3 Pressed", Toast.LENGTH_SHORT).show();
             if(!Button3) {
-                try {
-                    httpRequest.run("https://smartplugapiv2.onrender.com/mqtt/on");
-                    button3.setBackgroundColor(Color.BLUE);
-                    button3.setText(R.string.turnplug3off);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String url = "https://smartplugapiv2.onrender.com/mqtt/on";
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        if(response.isSuccessful()){
+                            String myResponse = response.body().string();
+                            System.out.println(myResponse);
+                            if(myResponse.contains("confirm?")){
+                                Log.i(TAG, "Need to confirm signal");
+                                openDialog(button3);                            //open confirm dialog passing button reference
+                            } else {
+                                Log.i(TAG, "No need to confirm signal");    //if power on without confirm
+                                button3.setBackgroundColor(Color.BLUE);          //update button look
+                                button3.setText(R.string.turnplug3off);
+                            }
+                        }
+                    }
+                });
+
             } else{
-                try {
-                    httpRequest.run("https://smartplugapiv2.onrender.com/mqtt/off");
-                    button3.setBackgroundColor(Color.GREEN);
-                    button3.setText(R.string.turnplug3on);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                String url = "https://smartplugapiv2.onrender.com/mqtt/off";
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        if(response.isSuccessful()){
+                            String myResponse = response.body().string();
+                        }
+                    }
+                });
+
+                button3.setBackgroundColor(Color.DKGRAY);
+                button3.setText(R.string.turnplug3on);
             }
             Button3 = !Button3;
         });
+
+
         return view;
 
     }
 
-    public void openDialog(){
-
-        confirmationDialog ConfirmationDialog = new confirmationDialog();
+    public void openDialog(Button buttonRef){
+        Log.i(TAG, "Opening confirmation dialog");
+        confirmationDialog ConfirmationDialog = new confirmationDialog();       //pass in button reference for remote update
+        ConfirmationDialog.buttonReference = buttonRef;
         ConfirmationDialog.show(getActivity().getSupportFragmentManager(), "Dialog box");
     }
 
