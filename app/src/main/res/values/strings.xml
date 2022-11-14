@@ -40,4 +40,10 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="menu_controller">Controller</string>
+    <string name="turnplug1on">Turn Plug 1 On</string>
+    <string name="turnplug1off">Turn Plug 1 Off</string>
+    <string name="turnplug2on">Turn Plug 2 On</string>
+    <string name="turnplug2off">Turn Plug 2 Off</string>
+    <string name="turnplug3on">Turn Plug 3 On</string>
+    <string name="turnplug3off">Turn Plug 3 Off</string>
 </resources>
