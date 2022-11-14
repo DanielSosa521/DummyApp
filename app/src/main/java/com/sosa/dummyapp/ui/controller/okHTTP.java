@@ -1,6 +1,13 @@
 package com.sosa.dummyapp.ui.controller;
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.sosa.dummyapp.MainActivity;
+import com.sosa.dummyapp.R;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -15,8 +22,9 @@ import okhttp3.ResponseBody;
 
 public class okHTTP {
     private final OkHttpClient client = new OkHttpClient();
+    int one;
 
-    public void run(String url) throws Exception {
+    public void run(String url, ViewModel viewModel) throws Exception {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -30,13 +38,18 @@ public class okHTTP {
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-                    Headers responseHeaders = response.headers();
-                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                        System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                    }
+//                    Headers responseHeaders = response.headers();
+//                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+//                        System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+//                    }
+
 
                     assert responseBody != null;
-                    System.out.println(responseBody.string());
+                    String commandResponse = responseBody.string();
+                    System.out.println(commandResponse);
+
+                    if(commandResponse.contains("confirm")){
+                    }
                 }
             }
         });

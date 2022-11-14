@@ -12,13 +12,24 @@ public class ControllerViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
+
     public ControllerViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is controller fragment");
         Log.i(TAG, "Updated controller textview");
     }
 
+    public String receivedData;
+
+    public void openDialog(){
+
+    }
+
+
+
     public LiveData<String> getText() {
         return mText;
     }
+
+
 }
