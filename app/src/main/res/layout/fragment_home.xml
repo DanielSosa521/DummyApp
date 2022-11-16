@@ -121,7 +121,7 @@
                         android:id="@+id/deltaTitleTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Delta"
+                        android:text="Power"
                         android:textAlignment="center"
                         android:textSize="34sp" />
 
@@ -129,7 +129,7 @@
                         android:id="@+id/deltaDescTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="+5%"
+                        android:text="+5"
                         android:textAlignment="center"
                         android:textSize="24sp" />
                 </LinearLayout>

@@ -20,7 +20,7 @@ public class HomeResource {
     private final String month;
     private final String summary;
     private final String savings;
-    private final Integer delta;
+    private final Float delta;
     private final String[] plugs;
 
     public String getMonth() {
@@ -35,7 +35,7 @@ public class HomeResource {
         return savings;
     }
 
-    public Integer getDelta() {
+    public Float getDelta() {
         return delta;
     }
 
