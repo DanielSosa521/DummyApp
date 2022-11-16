@@ -6,15 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.sosa.dummyapp.R;
 import com.sosa.dummyapp.databinding.FragmentScheduleBinding;
+import com.sosa.dummyapp.tasks.PingTask;
+
 import java.util.Locale;
 
 public class ScheduleFragment extends Fragment {
 
     private FragmentScheduleBinding binding;
+    private static final String webhost = "https://smartplugapiv2.onrender.com";
     /**
      * Link to TimePicker tutorial : https://www.youtube.com/watch?v=c6c1giRekB4
      */
@@ -22,6 +27,7 @@ public class ScheduleFragment extends Fragment {
     int hourMorning, minuteMorning;
     Button nightTimePickerButton;
     int hourNight, minuteNight;
+    Button clearScheduleButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,21 +41,49 @@ public class ScheduleFragment extends Fragment {
                 hourMorning = selectedHour;
                 minuteMorning = selectedMinute;
                 morningTimePickerButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hourMorning, minuteMorning));
+
+                //ping https://smartplugapiv2.onrender.com/schedule/on/<hr>/<min>
+                String microservice = "/schedule/";
+                String signal = "/on/";
+                String scheduleURL = webhost + microservice + signal + hourMorning +"/" + minuteMorning;
+                PingTask pingTask = new PingTask();
+                pingTask.execute(scheduleURL);
+
             };
             TimePickerDialog dialog = new TimePickerDialog(getContext(), onTimeSetListener, hourMorning, minuteMorning, false);
             dialog.setTitle("Select Time");
             dialog.show();
         });
+
         nightTimePickerButton = root.findViewById(R.id.nightTimePickerButton);
         nightTimePickerButton.setOnClickListener(view -> {
             TimePickerDialog.OnTimeSetListener onTimeSetListener = (timePicker, selectedHour, selectedMinute) -> {
                 hourNight = selectedHour;
                 minuteNight = selectedMinute;
                 nightTimePickerButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hourNight, minuteNight));
+
+                //ping https://smartplugapiv2.onrender.com/schedule/on/<hr>/<min>
+                String microservice = "/schedule/";
+                String signal = "/off/";
+                String scheduleURL = webhost + microservice + signal + hourNight +"/" + minuteNight;
+                PingTask pingTask = new PingTask();
+                pingTask.execute(scheduleURL);
             };
             TimePickerDialog dialog = new TimePickerDialog(getContext(), onTimeSetListener, hourNight, minuteNight, false);
             dialog.setTitle("Select Time");
             dialog.show();
+        });
+
+        clearScheduleButton = root.findViewById(R.id.clearScheduleButton);
+        clearScheduleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PingTask clearSchedulePingTask = new PingTask();
+                String microservice = "/schedule/";
+                String command = "/clear";
+                String clearSchedURL = webhost + microservice + command;
+                clearSchedulePingTask.execute(clearSchedURL);
+            }
         });
 
         return root;
